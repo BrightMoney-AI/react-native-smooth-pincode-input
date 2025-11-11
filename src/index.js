@@ -42,21 +42,21 @@ class SmoothPinCodeInput extends Component {
     if (!this.props.animated) {
       return new Promise((resolve, reject) => reject(new Error("Animations are disabled")));
     }
-    return this.ref.current[animation](duration);
+    return this?.ref?.current?.[animation]?.(duration);
   };
 
   shake = () => this.animate({animation: "shake"});
 
   focus = () => {
-    return this.inputRef.current.focus();
+    return this?.inputRef?.current?.focus?.();
   };
 
   blur = () => {
-    return this.inputRef.current.blur();
+    return this?.inputRef?.current?.blur?.();
   };
 
   clear = () => {
-    return this.inputRef.current.clear();
+    return this?.inputRef?.current?.clear?.();
   };
 
   _inputCode = (code) => {
@@ -75,7 +75,7 @@ class SmoothPinCodeInput extends Component {
 
     // handle password mask
     const maskDelay = password &&
-      code.length > this.props.value.length; // only when input new char
+      code.length > this?.props?.value?.length; // only when input new char
     this.setState({ maskDelay });
 
     if (maskDelay) { // mask password after delay
@@ -83,7 +83,7 @@ class SmoothPinCodeInput extends Component {
       this.maskTimeout = setTimeout(() => {
           this.setState({ maskDelay: false });
         },
-        this.props.maskDelay
+        this?.props?.maskDelay
       );
     }
   };
@@ -99,15 +99,15 @@ class SmoothPinCodeInput extends Component {
 
   _onFocused = () => {
     this.setState({ focused: true });
-    if (typeof this.props.onFocus === 'function') {
-      this.props.onFocus();
+    if (typeof this?.props?.onFocus === 'function') {
+      this?.props?.onFocus();
     }
   };
 
   _onBlurred = () => {
     this.setState({ focused: false });
-    if (typeof this.props.onBlur === 'function') {
-      this.props.onBlur();
+    if (typeof this?.props?.onBlur === 'function') {
+      this?.props?.onBlur();
     }
   };
 
@@ -228,9 +228,10 @@ class SmoothPinCodeInput extends Component {
 //             start: value.length,
 //             end: value.length,
 //           }}
+          collapsable={false}
           style={{
             flex: 1,
-            opacity: 0,
+            opacity: 0.01,
             textAlign: 'center',
           }}
           testID={testID || undefined}
